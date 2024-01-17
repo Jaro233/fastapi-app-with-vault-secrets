@@ -9,10 +9,34 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    services:
+      # Setup PostgreSQL service
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: ${{ secrets.HOST }}
+          POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
+          POSTGRES_DB: ${{ secrets.DATABASE }}
+        ports:
+          - 5432:5432
+        # Set health checks
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+
+      - name: Populate database
+        env:
+          POSTGRES_USER: ${{ secrets.HOST }}
+          POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
+          POSTGRES_DB: ${{ secrets.DATABASE }}
+        run: |
+          PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U $POSTGRES_USER -d $POSTGRES_DB -a -f ./populate_db.sql
 
       - name: Set up Python
         uses: actions/setup-python@v2
