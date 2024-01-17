@@ -19,6 +19,15 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Set environment variables from GitHub secrets
+      - name: Set up environment variables
+        run: |
+          echo "host=${{ secrets.HOST }}" >> $GITHUB_ENV
+          echo "database=${{ secrets.DATABASE }}" >> $GITHUB_ENV
+          echo "user=${{ secrets.USER }}" >> $GITHUB_ENV
+          echo "password=${{ secrets.PASSWORD }}" >> $GITHUB_ENV
+          echo "port=${{ secrets.PORT }}" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
@@ -28,8 +37,8 @@ jobs:
 
       - name: Code quality check
         run: |
-          flake8 .
-          black --check .
+          python -m flake8 --max-line-length=120
+          python -m black --check
 
       # - name: Run Selenium tests
       #   run: pytest tests/selenium_tests
