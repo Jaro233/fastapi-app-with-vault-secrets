@@ -42,7 +42,6 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          push: true
           tags: j4ro123/fastapi-app:latest
           secrets: |
             "host=${{ secrets.HOST }}"
