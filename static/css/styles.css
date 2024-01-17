@@ -1,0 +1,158 @@
+/* General Styles */
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 95%;
+  max-width: 800px; /* Adjust this value based on your preference */
+  margin: auto;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+h1 {
+  color: #333;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Table Styles for Listing Books */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 95%; /* Adjust the width as necessary */
+}
+
+input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Edit and Delete Buttons */
+.edit-btn,
+.delete-btn {
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.edit-btn {
+  background-color: #008cba; /* Blue */
+}
+
+.delete-btn {
+  background-color: #f44336; /* Red */
+}
+
+.back-btn {
+  background-color: #555555; /* Dark grey */
+  color: white;
+  padding: 10px 20px;
+  margin: 15px 0;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.back-btn:hover {
+  background-color: #6e6e6e; /* Lighter grey */
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+  opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    /* width: 95%;
+    margin: 10px; */
+    padding: 10px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  text-transform: capitalize;
+}

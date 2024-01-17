@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Book</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body class="container">
+    <div
+      id="message-container"
+      style="
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        border-radius: 5px;
+      "
+    ></div>
+
+    <h1>Add Book</h1>
+    <form id="addBookForm">
+      <input type="text" id="title" placeholder="Title" required /><br />
+      <input type="text" id="author" placeholder="Author" required /><br />
+      <input type="text" id="genre" placeholder="Genre" /><br />
+      <input
+        type="text"
+        id="status"
+        placeholder="Status (read, reading, to read)"
+      /><br />
+      <input
+        type="number"
+        min="1"
+        max="5"
+        id="user_rating"
+        placeholder="Rating (1-5)"
+      /><br />
+      <button type="submit">Add Book</button>
+    </form>
+    <button class="back-btn" onclick="window.location.href='/'">
+      Back to All Books
+    </button>
+    <script src="/static/js/add_book.js"></script>
+  </body>
+</html>

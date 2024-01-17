@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BookTracker</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <div id="message-container" style="display: none"></div>
+    <div class="container">
+      <h1>Books List</h1>
+      <table id="booksTable">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Status</th>
+            <th>Rating</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="books"></tbody>
+      </table>
+    </div>
+    <button><a href="/add-book">add book</a></button>
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>
