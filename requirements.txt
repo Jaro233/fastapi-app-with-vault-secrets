@@ -9,3 +9,5 @@ isort
 build
 httpx
 poetry
+selenium
+httpcore
