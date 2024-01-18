@@ -11,4 +11,4 @@ httpx
 poetry
 selenium
 httpcore
-get-chrome-driver
+chromedriver-autoinstaller

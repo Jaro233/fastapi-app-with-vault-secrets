@@ -8,19 +8,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
-from get_chrome_driver import GetChromeDriver
 
-# Replace with the path to your actual ChromeDriver
-get_driver = GetChromeDriver()
-get_driver.install()
+import chromedriver_autoinstaller
 
-driver = webdriver.Chrome()
+chromedriver_autoinstaller.install()
 
 options = Options()
 options.headless = True
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-# service = Service(executable_path="/usr/bin/chromedriver")
+options.add_argument("--no-sandbox")  # This is important in CI/CD environments
+options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+options.add_argument("--disable-gpu")  # Required for headless mode
+options.add_argument("--window-size=1920,1080")  # Set window siz
 driver = webdriver.Chrome(options=options)
 
 driver.get(
