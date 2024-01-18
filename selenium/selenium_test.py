@@ -15,10 +15,13 @@ chromedriver_autoinstaller.install()
 
 options = Options()
 options.headless = True
-options.add_argument("--no-sandbox")  # This is important in CI/CD environments
-options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
-options.add_argument("--disable-gpu")  # Required for headless mode
-options.add_argument("--window-size=1920,1080")  # Set window siz
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--disable-gpu")
+options.add_argument("--window-size=1920,1080")
+options.add_argument("--disable-extensions")
+options.add_argument("--disable-software-rasterizer")
+options.add_argument("--remote-debugging-port=9222")  # This can sometimes help
 driver = webdriver.Chrome(options=options)
 
 driver.get(
