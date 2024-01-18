@@ -17,7 +17,7 @@ from selenium.webdriver.chrome.options import Options
 
 options = Options()
 options.headless = True
-driver = webdriver.Chrome(options=options, executable_path="/usr/bin/chromedriver")
+driver = webdriver.Chrome()
 
 driver.get(
     "http://localhost:8000/add-book"
