@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 
 # Copy the current directory contents into the container at /usr/src/app
 COPY dist/ .
+COPY static .
 COPY requirements.txt .
 
 # Install any needed packages specified in requirements.txt
@@ -22,4 +23,4 @@ EXPOSE 8000
 # ENV password=
 # ENV port=
 # Run app.py when the container launches
-CMD ["uvicorn", "fast_api_app.app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "fast_api_app.ap:app", "--host", "0.0.0.0", "--port", "8000"]
