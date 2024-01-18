@@ -91,7 +91,12 @@ jobs:
 
       - name: Start Docker container
         run: |
-          docker run -d -p 8000:8000 --name myapp j4ro123/fastapi-app:latest
+          docker run -d -p 8000:8000 --name myapp j4ro123/fastapi-app:latest \
+          -e host=${{ secrets.DB_HOST }} \
+          -e database=${{ secrets.DB_DATABASE }} \
+          -e user=${{ secrets.DB_USER }} \
+          -e password=${{ secrets.DB_PASSWORD }} \
+          -e port=${{ secrets.DB_PORT }} \
 
       - name: Removing previous chrome instances on runner
         run: sudo apt purge google-chrome-stable

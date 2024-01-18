@@ -37,7 +37,9 @@ for option in options:
 
 driver = webdriver.Chrome(options=chrome_options)
 
-driver.get("http://0.0.0.0:8000/add-book")  # Adjust the URL to where your app is hosted
+driver.get(
+    "http://localhost:8000/add-book"
+)  # Adjust the URL to where your app is hosted
 
 # Assume the form fields have 'name' attributes: title, author, genre, status, user_rating
 title = driver.find_element(By.ID, "title")
