@@ -113,3 +113,6 @@ jobs:
 
       - name: Run Selenium tests
         run: python selenium/selenium_test.py
+
+      - name: Check Docker container logs
+        run: docker logs myapp
