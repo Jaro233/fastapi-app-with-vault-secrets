@@ -93,6 +93,9 @@ jobs:
         run: |
           docker run -d -p 8000:8000 --name myapp j4ro123/fastapi-app:latest
 
+      - name: Removing previous chrome instances on runner
+        run: sudo apt purge google-chrome-stable
+
       - name: Install Chrome and ChromeDriver
         run: |
           sudo apt-get update
