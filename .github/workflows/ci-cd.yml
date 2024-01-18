@@ -92,7 +92,7 @@ jobs:
       - name: Start Docker container
         run: |
           docker run -d -p 8000:8000 \
-          --env host=${{ secrets.HOST }} \
+          --env host=postgres \
           --env database=${{ secrets.DATABASE }} \
           --env user=${{ secrets.USER }} \
           --env password=${{ secrets.PASSWORD }} \
