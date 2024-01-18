@@ -11,3 +11,4 @@ httpx
 poetry
 selenium
 httpcore
+get-chrome-driver
