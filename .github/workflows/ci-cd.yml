@@ -112,4 +112,4 @@ jobs:
         run: sudo apt purge google-chrome-stable
 
       - name: Run Selenium tests
-        run: python -m pytest selenium/selenium_test.py
+        run: python selenium/selenium_test.py
