@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
-
+from selenium.webdriver.chrome.service import Service
 # Replace with the path to your actual ChromeDriver
 # get_driver = GetChromeDriver()
 # get_driver.install()
@@ -17,7 +17,8 @@ from selenium.webdriver.chrome.options import Options
 
 options = Options()
 options.headless = True
-driver = webdriver.Chrome("/usr/bin/chromedriver", options=options)
+service = Service(executable_path="/usr/bin/chromedriver")
+driver = webdriver.Chrome(service=service, options=options)
 
 driver.get(
     "http://localhost:8000/add-book"
