@@ -99,6 +99,9 @@ jobs:
           --env port=${{ secrets.PORT }} \
           --name myapp j4ro123/fastapi-app:latest
 
+      - name: Check if the app is running
+        run: curl -I http://localhost:8000/
+
       - name: Removing previous chrome instances on runner
         run: sudo apt purge google-chrome-stable
 
