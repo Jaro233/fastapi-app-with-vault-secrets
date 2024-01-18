@@ -99,4 +99,4 @@ jobs:
           sudo apt-get install -y chromium-chromedriver
 
       - name: Run Selenium tests
-        run: python -m pytest selenium/ --driver Chrome --driver-path /usr/bin/chromedriver
+        run: python -m pytest selenium/
