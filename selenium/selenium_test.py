@@ -1,28 +1,40 @@
 import time
 
+import chromedriver_autoinstaller
 # from get_chrome_driver import GetChromeDriver
 from httpcore import TimeoutException
+from pyvirtualdisplay import Display
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.options import Options
 
-import chromedriver_autoinstaller
+display = Display(visible=0, size=(800, 800))
+display.start()
 
 chromedriver_autoinstaller.install()
 
-options = Options()
-options.headless = True
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--disable-gpu")
-options.add_argument("--window-size=1920,1080")
-options.add_argument("--disable-extensions")
-options.add_argument("--disable-software-rasterizer")
-options.add_argument("--remote-debugging-port=9222")  # This can sometimes help
-driver = webdriver.Chrome(options=options)
+chrome_options = webdriver.ChromeOptions()
+# Add your options as needed
+options = [
+    # Define window size here
+    "--window-size=1200,1200",
+    "--ignore-certificate-errors" "--headless",
+    "--disable-gpu",
+    "--window-size=1920,1200",
+    "--ignore-certificate-errors",
+    "--disable-extensions",
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--remote-debugging-port=9222",
+]
+
+for option in options:
+    chrome_options.add_argument(option)
+
+
+driver = webdriver.Chrome(options=chrome_options)
 
 driver.get(
     "http://localhost:8000/add-book"

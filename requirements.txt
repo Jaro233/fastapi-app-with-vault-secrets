@@ -12,3 +12,4 @@ poetry
 selenium
 httpcore
 chromedriver-autoinstaller
+pyvirtualdisplay
