@@ -89,5 +89,14 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push j4ro123/fastapi-app:latest
 
-      # - name: Run Selenium tests
-      #   run: pytest tests/selenium_tests
+      - name: Start Docker container
+        run: |
+          docker run -d -p 8000:8000 --name myapp j4ro123/fastapi-app:latest
+
+      - name: Install Chrome Driver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-chromedriver
+
+      - name: Run Selenium tests
+        run: python -m pytest selenium/ --driver Chrome --driver-path /usr/bin/chromedriver
