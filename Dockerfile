@@ -5,8 +5,8 @@ FROM python:3.12
 WORKDIR /usr/src/app
 
 # Copy the current directory contents into the container at /usr/src/app
-COPY dist/ .
-COPY static .
+COPY dist/ ./
+COPY static ./static
 COPY requirements.txt .
 
 # Install any needed packages specified in requirements.txt
