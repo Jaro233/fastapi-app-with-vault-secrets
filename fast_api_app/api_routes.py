@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
-from db import db_conn
-from models import Book
+from fast_api_app.db import db_conn
+from fast_api_app.models import Book
 
 router = APIRouter()
 

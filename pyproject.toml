@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.poetry]
-name = "your_fastapi_project"
+name = "fast_api_app"
 version = "0.1.0"
 description = "A FastAPI application"
 authors = ["Your Name <you@example.com>"]

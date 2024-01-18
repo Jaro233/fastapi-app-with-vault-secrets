@@ -4,8 +4,8 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from api_routes import router as api_router
-from page_routes import router as page_router
+from fast_api_app.api_routes import router as api_router
+from fast_api_app.page_routes import router as page_router
 
 app = FastAPI()
 
