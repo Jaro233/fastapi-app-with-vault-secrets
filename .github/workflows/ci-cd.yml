@@ -90,14 +90,7 @@ jobs:
         run: docker push j4ro123/fastapi-app:latest
 
       - name: Start app and postgres containers in one network
-        run: |
-          docker run -d -p 8000:8000 \
-          --env host=postgres \
-          --env database=${{ secrets.DATABASE }} \
-          --env user=${{ secrets.USER }} \
-          --env password=${{ secrets.PASSWORD }} \
-          --env port=${{ secrets.PORT }} \
-          --name myapp j4ro123/fastapi-app:latest
+        run: docker-compose up -d
 
       - name: Wait for the application to be ready
         run: sleep 10 # Waits for 10 seconds
