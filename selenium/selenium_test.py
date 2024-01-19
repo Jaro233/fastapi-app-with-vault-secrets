@@ -1,6 +1,7 @@
 import time
 
 import chromedriver_autoinstaller
+
 # from get_chrome_driver import GetChromeDriver
 from httpcore import TimeoutException
 from pyvirtualdisplay import Display
