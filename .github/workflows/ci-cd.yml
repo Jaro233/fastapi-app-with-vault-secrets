@@ -18,7 +18,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
           POSTGRES_DB: ${{ secrets.DATABASE }}
         ports:
-          - 5432:5432
+          - 5433:5432
         # Set health checks
         options: >-
           --health-cmd pg_isready
@@ -100,7 +100,7 @@ jobs:
           --env database=${{ secrets.DATABASE }} \
           --env user=${{ secrets.USER }} \
           --env password=${{ secrets.PASSWORD }} \
-          --env port=${{ secrets.PORT }} \
+          --env port=5433 \
           --name fastapi-app j4ro123/fastapi-app:latest
 
       - name: Wait for the application to be ready
