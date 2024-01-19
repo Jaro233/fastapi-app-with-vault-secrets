@@ -32,8 +32,7 @@ jobs:
 
       - name: Run DB container
         run: |
-          docker network create mynetwork
-          docker run --network mynetwork --name db -p 5432:5432 \
+          docker run --name db -p 5432:5432 \
           --env POSTGRES_USER=${{ secrets.USER }} \
           --env POSTGRES_PASSWORD=${{ secrets.PASSWORD }} \
           --env POSTGRES_DB=${{ secrets.DATABASE }} \
@@ -113,7 +112,6 @@ jobs:
       - name: Run Docker container
         run: |
           docker run -d -p 8000:8000 \
-          --network mynetwork \
           --env host=${{ secrets.HOST }} \
           --env database=${{ secrets.DATABASE }} \
           --env user=${{ secrets.USER }} \
