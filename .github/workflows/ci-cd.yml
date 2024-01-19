@@ -100,7 +100,7 @@ jobs:
           --env database=${{ secrets.DATABASE }} \
           --env user=${{ secrets.USER }} \
           --env password=${{ secrets.PASSWORD }} \
-          --env port=${{ secrets.PORT }} \
+          --env port=5432 \
           --name fastapi-app j4ro123/fastapi-app:latest
 
       - name: Wait for the application to be ready
