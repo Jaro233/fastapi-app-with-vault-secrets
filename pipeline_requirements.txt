@@ -6,3 +6,4 @@ poetry
 isort
 fastapi
 httpx
+psycopg2_binary
