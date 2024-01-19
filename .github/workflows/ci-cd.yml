@@ -23,6 +23,30 @@ jobs:
           -v ${{ github.workspace }}/fast_api_app/populate_db.sql:/docker-entrypoint-initdb.d/populate_db.sql \
           -d postgres:latest
 
+      - name: Verify database population
+        env:
+          POSTGRES_USER: ${{ secrets.USER }}
+          POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
+          POSTGRES_DB: ${{ secrets.DATABASE }}
+        run: |
+          # Wait for the database to be fully ready
+          echo "Waiting for PostgreSQL to start"
+          until docker exec db pg_isready; do
+            sleep 1;
+          done
+          echo "PostgreSQL started"
+
+          # Check if the database is populated
+          QUERY="SELECT COUNT(*) FROM your_table;"
+          RESULT=$(docker exec -e PGPASSWORD=$POSTGRES_PASSWORD db psql -U $POSTGRES_USER -d $POSTGRES_DB -t -c "$QUERY")
+          echo "Number of rows in your_table: $RESULT"
+          if [[ $RESULT -eq 0 ]]; then
+            echo "Database is not populated"
+            exit 1
+          else
+            echo "Database is populated"
+          fi
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
