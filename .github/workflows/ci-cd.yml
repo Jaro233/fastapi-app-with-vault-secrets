@@ -45,15 +45,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
           POSTGRES_DB: ${{ secrets.DATABASE }}
         run: |
-          # Wait for the database to be ready
-          echo "Waiting for PostgreSQL to start"
-          until docker exec db pg_isready; do
-            sleep 1;
-          done
-          echo "PostgreSQL started"
-          # Populate the database
-          docker cp ./fast_api_app/populate_db.sql db:/docker-entrypoint-initdb.d/populate_db.sql
-          docker exec db psql -U $POSTGRES_USER -d $POSTGRES_DB -a -f /docker-entrypoint-initdb.d/populate_db.sql
+          PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U $POSTGRES_USER -d $POSTGRES_DB -a -f ./fast_api_app/populate_db.sql
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -114,11 +106,11 @@ jobs:
         run: |
           docker run -d -p 8000:8000 \
           --network mynetwork \
-          --env host=db \
+          --env host=${{ secrets.HOST }} \
           --env database=${{ secrets.DATABASE }} \
           --env user=${{ secrets.USER }} \
           --env password=${{ secrets.PASSWORD }} \
-          --env port=${{ secrets.PASSWORD }} \
+          --env port=${{ secrets.PORT }} \
           --name fastapi-app j4ro123/fastapi-app:latest
 
       - name: Wait for the application to be ready
