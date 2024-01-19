@@ -23,7 +23,7 @@ services:
     depends_on:
       - db
     environment:
-      host: ${host}
+      host: db
       database: ${database}
       user: ${user}
       password: ${password}
