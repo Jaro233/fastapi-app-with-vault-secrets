@@ -89,7 +89,7 @@ time.sleep(2)
 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "booksTable")))
 
 # Find the table
-table = driver.find_element(By.ID, "booksTable")
+table = driver.find_element(By.ID, "books")
 
 # Find all the rows in the table
 rows = table.find_elements(By.TAG_NAME, "tr")
