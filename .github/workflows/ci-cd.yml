@@ -45,7 +45,15 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
           POSTGRES_DB: ${{ secrets.DATABASE }}
         run: |
-          psql -h localhost -U $POSTGRES_USER -p $POSTGRES_PASSWORD  -d $POSTGRES_DB -p 5432 -a -f ./fast_api_app/populate_db.sql
+          # Wait for the database to be ready
+          echo "Waiting for PostgreSQL to start"
+          until docker exec db pg_isready; do
+            sleep 1;
+          done
+          echo "PostgreSQL started"
+          # Populate the database
+          docker cp ./fast_api_app/populate_db.sql db:/docker-entrypoint-initdb.d/populate_db.sql
+          docker exec db psql -U $POSTGRES_USER -d $POSTGRES_DB -a -f /docker-entrypoint-initdb.d/populate_db.sql
 
       - name: Set up Python
         uses: actions/setup-python@v2
