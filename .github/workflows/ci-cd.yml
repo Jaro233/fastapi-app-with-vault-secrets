@@ -9,31 +9,26 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    # services:
-    #   # Setup PostgreSQL service
-    #   postgres:
-    #     image: postgres:12
-    #     env:
-    #       POSTGRES_USER: ${{ secrets.USER }}
-    #       POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
-    #       POSTGRES_DB: ${{ secrets.DATABASE }}
-    #     ports:
-    #       - 5432:5432
-    #     # Set health checks
-    #     options: >-
-    #       --health-cmd pg_isready
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
+    services:
+      # Setup PostgreSQL service
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: ${{ secrets.USER }}
+          POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
+          POSTGRES_DB: ${{ secrets.DATABASE }}
+        ports:
+          - 5432:5432
+        # Set health checks
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-
-      - name: Start postgres container with network
-        run: |
-          docker network create mynetwork
-          docker run --network mynetwork --name postgres -e POSTGRES_USER=${{ secrets.USER }} -e POSTGRES_PASSWORD=${{ secrets.PASSWORD }} -e POSTGRES_DB=${{ secrets.DATABASE }} -d postgres:12 -p 5432:5432
 
       - name: Populate database
         env:
@@ -41,7 +36,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
           POSTGRES_DB: ${{ secrets.DATABASE }}
         run: |
-          PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U $POSTGRES_USER -d $POSTGRES_DB -p 5432 -a -f ./fast_api_app/populate_db.sql
+          PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U $POSTGRES_USER -d $POSTGRES_DB -a -f ./fast_api_app/populate_db.sql
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -96,7 +91,7 @@ jobs:
 
       - name: Start app and postgres containers in one network
         run: |
-          docker run --network mynetwork -d -p 8000:8000 \
+          docker run -d -p 8000:8000 \
           --env host=postgres \
           --env database=${{ secrets.DATABASE }} \
           --env user=${{ secrets.USER }} \

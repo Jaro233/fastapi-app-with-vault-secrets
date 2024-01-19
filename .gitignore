@@ -3,5 +3,4 @@ __pycache__
 .pytest*
 chrome*
 dist
-docker-compose.yml
 env*
