@@ -6,3 +6,4 @@ pydantic
 python-dotenv
 PyVirtualDisplay
 starlette
+uvicorn
