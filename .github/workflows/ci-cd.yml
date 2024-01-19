@@ -37,9 +37,9 @@ jobs:
           echo "PostgreSQL started"
 
           # Check if the database is populated
-          QUERY="SELECT COUNT(*) FROM your_table;"
+          QUERY="SELECT COUNT(*) FROM books;"
           RESULT=$(docker exec -e PGPASSWORD=$POSTGRES_PASSWORD db psql -U $POSTGRES_USER -d $POSTGRES_DB -t -c "$QUERY")
-          echo "Number of rows in your_table: $RESULT"
+          echo "Number of rows in books: $RESULT"
           if [[ $RESULT -eq 0 ]]; then
             echo "Database is not populated"
             exit 1
