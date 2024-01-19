@@ -9,26 +9,31 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    services:
-      # Setup PostgreSQL service
-      postgres:
-        image: postgres:12
-        env:
-          POSTGRES_USER: ${{ secrets.USER }}
-          POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
-          POSTGRES_DB: ${{ secrets.DATABASE }}
-        ports:
-          - 5432:5432
-        # Set health checks
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+    # services:
+    #   # Setup PostgreSQL service
+    #   postgres:
+    #     image: postgres:12
+    #     env:
+    #       POSTGRES_USER: ${{ secrets.USER }}
+    #       POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
+    #       POSTGRES_DB: ${{ secrets.DATABASE }}
+    #     ports:
+    #       - 5432:5432
+    #     # Set health checks
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
 
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+
+      - name: Start postgres container with network
+        run: |
+          docker network create mynetwork
+          docker run --network mynetwork --name postgres -e POSTGRES_USER=${{ secrets.DATABASE }} -e POSTGRES_PASSWORD=${{ secrets.PASSWORD }} -e POSTGRES_DB=${{ secrets.PASSWORD }} -d postgres:12 -p 5432:5432
 
       - name: Populate database
         env:
@@ -89,9 +94,9 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push j4ro123/fastapi-app:latest
 
-      - name: Start Docker container
+      - name: Start app and postgres containers in one network
         run: |
-          docker run -d -p 8000:8000 \
+          docker run --network mynetwork -d -p 8000:8000 \
           --env host=postgres \
           --env database=${{ secrets.DATABASE }} \
           --env user=${{ secrets.USER }} \
