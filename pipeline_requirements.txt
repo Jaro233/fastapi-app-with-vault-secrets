@@ -7,3 +7,4 @@ isort
 fastapi
 httpx
 psycopg2_binary
+python-dotenv
