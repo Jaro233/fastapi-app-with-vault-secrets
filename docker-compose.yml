@@ -17,6 +17,7 @@ services:
     # build: .
     # command: uvicorn fast_api_app.app:app --host 0.0.0.0 --port 8000 --reload
     image: j4ro123/fastapi-app:latest
+    container_name: fastapi-app
     volumes:
       - .:/usr/src/app
     ports:

@@ -96,7 +96,7 @@ jobs:
         run: sleep 10 # Waits for 10 seconds
 
       - name: Check Docker container logs
-        run: docker logs myapp
+        run: docker logs fastapi-app
 
       - name: Check if the app is running
         run: curl -I http://localhost:8000/
