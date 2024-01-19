@@ -33,15 +33,21 @@ jobs:
       - name: Run DB container
         run: |
           docker network create mynetwork
-          docker run --network mynetwork --name db --env  POSTGRES_USER=${{ secrets.USER }} --env  POSTGRES_PASSWORD=${{ secrets.PASSWORD }} --env  POSTGRES_DB=${{ secrets.DATABASE }} -d postgres:latest
+          docker run --network mynetwork \
+          --name db \
+          --env POSTGRES_USER=${{ secrets.USER }} \
+          --env POSTGRES_PASSWORD=${{ secrets.PASSWORD }} \
+          --env POSTGRES_DB=${{ secrets.DATABASE }} \
+          -d postgres:latest \
+          --volume ./fast_api_app/populate_db.sql:/docker-entrypoint-initdb.d/populate_db.sql
 
-      - name: Populate database
-        env:
-          POSTGRES_USER: ${{ secrets.USER }}
-          POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
-          POSTGRES_DB: ${{ secrets.DATABASE }}
-        run: |
-          PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U $POSTGRES_USER -d $POSTGRES_DB -a -f ./fast_api_app/populate_db.sql
+      # - name: Populate database
+      #   env:
+      #     POSTGRES_USER: ${{ secrets.USER }}
+      #     POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
+      #     POSTGRES_DB: ${{ secrets.DATABASE }}
+      #   run: |
+      #     PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U $POSTGRES_USER -d $POSTGRES_DB -a -f ./fast_api_app/populate_db.sql
 
       - name: Set up Python
         uses: actions/setup-python@v2
