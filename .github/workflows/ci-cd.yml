@@ -33,7 +33,7 @@ jobs:
       - name: Start postgres container with network
         run: |
           docker network create mynetwork
-          docker run --network mynetwork --name postgres -e POSTGRES_USER=${{ secrets.DATABASE }} -e POSTGRES_PASSWORD=${{ secrets.PASSWORD }} -e POSTGRES_DB=${{ secrets.PASSWORD }} -d postgres:12 -p 5432:5432
+          docker run --network mynetwork --name postgres -e POSTGRES_USER=${{ secrets.USER }} -e POSTGRES_PASSWORD=${{ secrets.PASSWORD }} -e POSTGRES_DB=${{ secrets.DATABASE }} -d postgres:12 -p 5432:5432
 
       - name: Populate database
         env:
