@@ -68,7 +68,7 @@ jobs:
       # Set environment variables from GitHub secrets
       - name: Set up environment variables
         run: |
-          echo "host=${{ secrets.DATABASE }}" >> $GITHUB_ENV
+          echo "host=localhost" >> $GITHUB_ENV
           echo "database=${{ secrets.DATABASE }}" >> $GITHUB_ENV
           echo "user=${{ secrets.USER }}" >> $GITHUB_ENV
           echo "password=${{ secrets.PASSWORD }}" >> $GITHUB_ENV
