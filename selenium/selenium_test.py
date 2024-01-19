@@ -63,19 +63,25 @@ submit_button.click()
 time.sleep(3)
 
 try:
+    # Wait for the alert to be present
     WebDriverWait(driver, 10).until(EC.alert_is_present())
 
     # Switch to the alert
     alert = driver.switch_to.alert
 
-    # Retrieve the message from the alert
-    alert_message = alert.text
-    print("Alert message:", alert_message)
-
-    # You can now accept the alert (click OK) if you need to
-    alert.accept()
+    # Check if the alert text is what we expect
+    if alert.text == "Book added successfully":
+        print("Alert message confirmed:", alert.text)
+        # Accept the alert (click OK)
+        alert.accept()
+    else:
+        print("Alert message was not as expected. Actual message:", alert.text)
+        # Optionally, handle the unexpected alert text here
+        alert.dismiss()  # or alert.accept() depending on the desired action
+        assert False, "The alert message was not as expected."
 
 except TimeoutException:
     print("No alert was present after 10 seconds.")
+    assert False, "No alert appeared within the expected time."
 
 driver.quit()

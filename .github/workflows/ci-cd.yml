@@ -9,26 +9,31 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    services:
-      # Setup PostgreSQL service
-      db:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: ${{ secrets.USER }}
-          POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
-          POSTGRES_DB: ${{ secrets.DATABASE }}
-        ports:
-          - 5433:5432
-        # Set health checks
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+    # services:
+    #   # Setup PostgreSQL service
+    #   db:
+    #     image: postgres:latest
+    #     env:
+    #       POSTGRES_USER: ${{ secrets.USER }}
+    #       POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
+    #       POSTGRES_DB: ${{ secrets.DATABASE }}
+    #     ports:
+    #       - 5433:5432
+    #     # Set health checks
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
 
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+
+      - name: Run DB container
+        run: |
+          docker network create mynetwork
+          docker run --network mynetwork --name db --env  POSTGRES_USER=${{ secrets.USER }} --env  POSTGRES_PASSWORD=${{ secrets.PASSWORD }} --env  POSTGRES_DB=${{ secrets.DATABASE }} -d postgres:latest
 
       - name: Populate database
         env:
@@ -96,7 +101,8 @@ jobs:
       - name: Run Docker container
         run: |
           docker run -d -p 8000:8000 \
-          --env host=db \
+          --network mynetwork \
+          --env host=${{ secrets.HOST }} \
           --env database=${{ secrets.DATABASE }} \
           --env user=${{ secrets.USER }} \
           --env password=${{ secrets.PASSWORD }} \
