@@ -14,8 +14,9 @@ services:
       - ./fast_api_app/populate_db.sql:/docker-entrypoint-initdb.d/populate_db.sql
 
   app:
-    build: .
-    command: uvicorn fast_api_app.app:app --host 0.0.0.0 --port 8000 --reload
+    # build: .
+    # command: uvicorn fast_api_app.app:app --host 0.0.0.0 --port 8000 --reload
+    image: j4ro123/fastapi-app:latest
     volumes:
       - .:/usr/src/app
     ports:
