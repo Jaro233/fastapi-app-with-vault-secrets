@@ -33,10 +33,10 @@ jobs:
       - name: Run DB container
         run: |
           docker network create mynetwork
-          docker run --network mynetwork --name db \
-          -e POSTGRES_USER=${{ secrets.USER }} \
-          -e POSTGRES_PASSWORD=${{ secrets.PASSWORD }} \
-          -e POSTGRES_DB=${{ secrets.DATABASE }} \
+          docker run --network mynetwork --name db -p 5432:5432 \
+          --env POSTGRES_USER=${{ secrets.USER }} \
+          --env POSTGRES_PASSWORD=${{ secrets.PASSWORD }} \
+          --env POSTGRES_DB=${{ secrets.DATABASE }} \
           -d postgres:latest
 
       - name: Populate database
@@ -68,7 +68,7 @@ jobs:
       # Set environment variables from GitHub secrets
       - name: Set up environment variables
         run: |
-          echo "host=${{ secrets.HOST }}" >> $GITHUB_ENV
+          echo "host=localhost" >> $GITHUB_ENV
           echo "database=${{ secrets.DATABASE }}" >> $GITHUB_ENV
           echo "user=${{ secrets.USER }}" >> $GITHUB_ENV
           echo "password=${{ secrets.PASSWORD }}" >> $GITHUB_ENV
