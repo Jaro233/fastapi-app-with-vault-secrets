@@ -45,7 +45,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
           POSTGRES_DB: ${{ secrets.DATABASE }}
         run: |
-          PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U $POSTGRES_USER -d $POSTGRES_DB -a -f ./fast_api_app/populate_db.sql
+          psql -h localhost -U $POSTGRES_USER -p $POSTGRES_PASSWORD  -d $POSTGRES_DB -p 5432 -a -f ./fast_api_app/populate_db.sql
 
       - name: Set up Python
         uses: actions/setup-python@v2
