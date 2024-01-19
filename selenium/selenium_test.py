@@ -86,31 +86,28 @@ except TimeoutException:
 
 time.sleep(2)
 
-WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.ID, "booksTable"))
-)
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "booksTable")))
 
 # Find the table
-table = driver.find_element(By.ID, 'booksTable')
+table = driver.find_element(By.ID, "booksTable")
 
 # Find all the rows in the table
-rows = table.find_elements(By.TAG_NAME, 'tr')
+rows = table.find_elements(By.TAG_NAME, "tr")
 
 # Now we search for the row that has both the title and author we just submitted
 book_found = False
 for row in rows:
     # Get all cells in the row
-    cells = row.find_elements(By.TAG_NAME, 'td')
+    cells = row.find_elements(By.TAG_NAME, "td")
     # Assume first cell is title and second cell is author
     row_title = cells[0].text
     row_author = cells[1].text
     if row_title == "Selenium Test Book" and row_author == "Selenium Tester":
         book_found = True
-        assert book_found, "Book was found in the table."
-        break
-    else: 
         assert book_found, "Book was not found in the table."
+        break
 
-
+if book_found is False:
+    assert book_found, "Book was not found in the table."
 
 driver.quit()
