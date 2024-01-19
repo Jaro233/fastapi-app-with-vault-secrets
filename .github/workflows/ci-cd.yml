@@ -18,7 +18,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
           POSTGRES_DB: ${{ secrets.DATABASE }}
         ports:
-          - 5432:5432
+          - 5433:5432
         # Set health checks
         options: >-
           --health-cmd pg_isready
@@ -96,7 +96,7 @@ jobs:
       - name: Run Docker container
         run: |
           docker run -d -p 8000:8000 \
-          --env host=postgresql \
+          --env host=postgres \
           --env database=${{ secrets.DATABASE }} \
           --env user=${{ secrets.USER }} \
           --env password=${{ secrets.PASSWORD }} \
