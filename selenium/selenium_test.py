@@ -104,7 +104,7 @@ for row in rows:
     row_author = cells[1].text
     if row_title == "Selenium Test Book" and row_author == "Selenium Tester":
         book_found = True
-        print("Book was not found in the table.")
+        print("Book was found in the table.")
         break
 
 if book_found is False:
