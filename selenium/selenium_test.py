@@ -108,6 +108,6 @@ for row in rows:
         break
 
 if book_found is False:
-    print("Book was not found in the table.")
+    assert False, "Book was not found in the table."
 
 driver.quit()
